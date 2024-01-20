@@ -1,0 +1,7 @@
+C:\Users\user\Source\Repos\snakeandladder\snakeandladder\bin\Debug\snakeandladder.exe.config
+C:\Users\user\Source\Repos\snakeandladder\snakeandladder\bin\Debug\snakeandladder.exe
+C:\Users\user\Source\Repos\snakeandladder\snakeandladder\bin\Debug\snakeandladder.pdb
+C:\Users\user\Source\Repos\snakeandladder\snakeandladder\obj\Debug\snakeandladder.csproj.AssemblyReference.cache
+C:\Users\user\Source\Repos\snakeandladder\snakeandladder\obj\Debug\snakeandladder.csproj.CoreCompileInputs.cache
+C:\Users\user\Source\Repos\snakeandladder\snakeandladder\obj\Debug\snakeandladder.exe
+C:\Users\user\Source\Repos\snakeandladder\snakeandladder\obj\Debug\snakeandladder.pdb
