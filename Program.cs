@@ -49,6 +49,10 @@ class Program
                 playerPosition = 0;
             else if (playerPosition >= 100)
                 Console.WriteLine("Player reached the winning position (100)!");
+            else if(playerPosition> 100)
+            {
+                Console.WriteLine($"Player reached the  position {playerPosition-DiceValue()}");
+            }
         }
     }
 }
