@@ -1,57 +1,54 @@
 ﻿using System;
+
 class Program
 {
-    static void Main()
-    {
-
-        int diceroll = DiceRoll();
-        //Console.WriteLine(diceroll);
-        play();
-        Console.ReadLine();
-    }
-    static int DiceRoll()
-    {
-        Random random = new Random();
-        return random.Next(1, 7);
-    }
-    static int position()
-    {
-        Random random = new Random();
-        return random.Next(1, 101);
-    }
-   
+    static Random random = new Random();
 
     static string GetOption()
     {
-        Random random = new Random();
         string[] options = { "No Play", "Ladder", "Snake" };
         return options[random.Next(options.Length)];
     }
 
-    static void play()
+    static int DiceValue()
     {
-        Console.WriteLine("Press Enter to simulate a player's turn.");
-        Console.ReadLine();
+        return random.Next(1, 7);
+    }
 
-        string option = GetOption();
+    static void Main()
+    {
+        int playerPosition = 0;
 
-        switch (option)
+        while (playerPosition < 100)
         {
-            case "Ladder":
-                Console.WriteLine($"found a ladder.Move from {position()} to {position() + DiceRoll()}");
-                break;
-            case "Snake":
-                Console.WriteLine($"Player encountered a snake.Move from {position()} to {position() - DiceRoll()}.");
-                break;
-            default:
-                Console.WriteLine("Stay in the same position.");
-                break;
+            Console.WriteLine($"Player is currently at position {playerPosition}. Press Enter to simulate a player's turn.");
+            Console.ReadLine();
+
+            string option = GetOption();
+
+            switch (option)
+            {
+                case "Ladder":
+                    Console.WriteLine("Player found a ladder! Move forward.");
+                    playerPosition += DiceValue();
+                    Console.WriteLine($"Player moved from {playerPosition - DiceValue()} to {playerPosition}.");
+                    break;
+                case "Snake":
+                    Console.WriteLine("Uh-oh! Player encountered a snake. Move backward.");
+                    int previousPosition = playerPosition;
+                    playerPosition -= DiceValue();
+                    Console.WriteLine($"Player moved from {previousPosition} to {playerPosition}.");
+                    break;
+                default:
+                    Console.WriteLine("No play. Stay in the same position.");
+                    break;
+            }
+
+            // Ensure the player's position is within bounds
+            if (playerPosition < 0)
+                playerPosition = 0;
+            else if (playerPosition >= 100)
+                Console.WriteLine("Player reached the winning position (100)!");
         }
     }
 }
-
-   
-
-
-
-
