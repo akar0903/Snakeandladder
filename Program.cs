@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Threading;
 
 class Program
 {
     static Random random = new Random();
-
     static string GetOption()
     {
         string[] options = { "No Play", "Ladder", "Snake" };
@@ -18,9 +18,11 @@ class Program
     static void Main()
     {
         int playerPosition = 0;
+        int count = 0;
 
         while (playerPosition < 100)
         {
+            Console.WriteLine("Die Count "+count++);
             Console.WriteLine($"Player is currently at position {playerPosition}. Press Enter to simulate a player's turn.");
             Console.ReadLine();
 
@@ -43,8 +45,6 @@ class Program
                     Console.WriteLine("No play. Stay in the same position.");
                     break;
             }
-
-            // Ensure the player's position is within bounds
             if (playerPosition < 0)
                 playerPosition = 0;
             else if (playerPosition >= 100)
