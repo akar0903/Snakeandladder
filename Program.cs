@@ -1,68 +1,93 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class Program
+namespace Snake_and_Ladder
 {
-    static Random random = new Random();
-    static string GetOption()
+    internal class Program
     {
-        string[] options = { "No Play", "Ladder", "Snake" };
-        return options[random.Next(options.Length)];
-    }
-
-    static int DiceValue()
-    {
-        return random.Next(1, 7);
-    }
-
-    static void Main()
-    {
-        int playerPosition = 0;
-        int count = 0;
-
-        while (playerPosition < 100)
+        static void Main(string[] args)
         {
-            Console.WriteLine("Die Count " + count++);
-            Console.WriteLine($"Player is currently at position {playerPosition}. Press Enter to simulate a player's turn.");
-            Console.ReadLine();
-
-            string option = GetOption();
-
-            switch (option)
+            int play1position = 0;
+            int play2position = 0;
+            int count = 0;
+            while (play1position < 100 && play2position < 100)
             {
-                case "Ladder":
+                Console.WriteLine($"Dice count: {count++}");
+                Console.WriteLine($"Player 1 is currently at position {play1position}. Press Enter to simulate a player's turn.");
+                int x1 = Diceroll();
+                Console.WriteLine($"Dice gave: {x1}");
+                Console.ReadLine();
+                Playerposition(ref play1position, x1, count);
+                if (play1position == 100)
+                {
+                    Console.WriteLine("Player 1 reached the winning position (100)!");
+                    break;
+                }
+                Console.WriteLine($"Player 2 is currently at position {play2position}. Press Enter to simulate a player's turn.");
+                Console.ReadLine();
+                int x2 = Diceroll();
+                Console.WriteLine($"Dice gave: {x2}");
+
+                Playerposition(ref play2position, x2, count);
+
+                if (play2position == 100)
+                {
+                    Console.WriteLine("Player 2 reached the winning position (100)!");
+                    break; // Player 2 won, exit the loop
+                }
+            }
+            Console.WriteLine("Game Over!");
+            Console.ReadLine();
+        }
+        static void Playerposition(ref int playposition, int x, int c)
+        {
+            Random rand = new Random();
+            int options = rand.Next(0, 3);
+            switch (options)
+            {
+                case 0:
                     Console.WriteLine("Player found a ladder! Move forward.");
-                    playerPosition += DiceValue();
-                    int a = random.Next(playerPosition, 101);
-                    Console.WriteLine($"Player moved from {playerPosition} to {a}");
-                    playerPosition = a;
+                    playposition += x;
+                    int a = rand.Next(playposition, 101);
+                    Console.WriteLine($"Player moved from {playposition} to {a}");
+                    playposition = a;
                     break;
-                case "Snake":
-                    Console.WriteLine("Uh-oh! Player encountered a snake. Move backward.");
-                    playerPosition += DiceValue();
-                    int b = random.Next(1, playerPosition);
-                    Console.WriteLine($"Player moved from {playerPosition} to {b}");
-                    playerPosition = b;
+                case 1:
+                    Console.WriteLine("Its a Snake, Move backward");
+                    playposition += x;
+                    int b = rand.Next(2, playposition);
+                    Console.WriteLine($"Player moved from {playposition} to {b}.");
+                    playposition = b;
                     break;
-                default:
-                    int previous = playerPosition;
-                    playerPosition += DiceValue();
-
-                    Console.WriteLine($"Player moved from {previous} to {playerPosition}.");
-
+                case 2:
+                    int previous = playposition;
+                    playposition += x;
+                    Console.WriteLine($"Player moved from {previous} to {playposition}.");
                     break;
             }
-            if (playerPosition < 0)
-                playerPosition = 0;
-            else if (playerPosition >= 100)
+
+
+            if (playposition < 0)
             {
-                Console.WriteLine("Total die count " + count);
+                playposition = 0;
+            }
+            else if (playposition == 100)
+            {
+                Console.WriteLine("Total die count " + c);
                 Console.WriteLine("Player reached the winning position (100)!");
             }
-            else if (playerPosition > 100)
+            else if (playposition > 100)
             {
-                Console.WriteLine($"Player reached the position {playerPosition - DiceValue()}");
+                Console.WriteLine($"Player is in the same position {playposition - Diceroll()}!");
             }
+        }
+        static int Diceroll()
+        {
+            Random rand = new Random();
+            return rand.Next(1, 7);
         }
     }
 }
