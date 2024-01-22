@@ -22,7 +22,7 @@ class Program
 
         while (playerPosition < 100)
         {
-            Console.WriteLine("Die Count "+count++);
+            Console.WriteLine("Die Count " + count++);
             Console.WriteLine($"Player is currently at position {playerPosition}. Press Enter to simulate a player's turn.");
             Console.ReadLine();
 
@@ -33,25 +33,35 @@ class Program
                 case "Ladder":
                     Console.WriteLine("Player found a ladder! Move forward.");
                     playerPosition += DiceValue();
-                    Console.WriteLine($"Player moved from {playerPosition - DiceValue()} to {playerPosition}.");
+                    int a = random.Next(playerPosition, 101);
+                    Console.WriteLine($"Player moved from {playerPosition} to {a}");
+                    playerPosition = a;
                     break;
                 case "Snake":
                     Console.WriteLine("Uh-oh! Player encountered a snake. Move backward.");
-                    int previousPosition = playerPosition;
-                    playerPosition -= DiceValue();
-                    Console.WriteLine($"Player moved from {previousPosition} to {playerPosition}.");
+                    playerPosition += DiceValue();
+                    int b = random.Next(1, playerPosition);
+                    Console.WriteLine($"Player moved from {playerPosition} to {b}");
+                    playerPosition = b;
                     break;
                 default:
-                    Console.WriteLine("No play. Stay in the same position.");
+                    int previous = playerPosition;
+                    playerPosition += DiceValue();
+
+                    Console.WriteLine($"Player moved from {previous} to {playerPosition}.");
+
                     break;
             }
             if (playerPosition < 0)
                 playerPosition = 0;
             else if (playerPosition >= 100)
-                Console.WriteLine("Player reached the winning position (100)!");
-            else if(playerPosition> 100)
             {
-                Console.WriteLine($"Player reached the  position {playerPosition-DiceValue()}");
+                Console.WriteLine("Total die count " + count);
+                Console.WriteLine("Player reached the winning position (100)!");
+            }
+            else if (playerPosition > 100)
+            {
+                Console.WriteLine($"Player reached the position {playerPosition - DiceValue()}");
             }
         }
     }
